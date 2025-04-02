@@ -3,7 +3,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = ">= 5.93.0"  # Asegura una ver. reciente https://registry.terraform.io/providers/hashicorp/aws/latest
     }
   }
 }
@@ -16,6 +16,7 @@ provider "aws" {
   profile = var.profile_name
 }
 
+# Rol para el lambda
 resource "aws_iam_role" "lambda_role" {
   name = "Rol_${var.lambda_name}"
 
@@ -36,6 +37,7 @@ resource "aws_iam_role" "lambda_role" {
   tags = var.lambda_tags
 }
 
+# Política para el rol
 resource "aws_iam_policy" "Politica_lambda_basic_exec_role" {
   name        = "Politica_lambda_basic_exec_role_${var.lambda_name}"
   description = "Permiso básico de Lambda para que escriba logs en CloudWatch"
@@ -57,11 +59,13 @@ resource "aws_iam_policy" "Politica_lambda_basic_exec_role" {
   })
 }
 
+# attach política al rol (lambda)
 resource "aws_iam_role_policy_attachment" "lambda_role_policy_attachment" {
   role       = aws_iam_role.lambda_role.name
   policy_arn = aws_iam_policy.Politica_lambda_basic_exec_role.arn
 }
 
+# lambda
 resource "aws_lambda_function" "mi_lambda" {
   function_name = var.lambda_name
   runtime       = var.lambda_runtime
@@ -72,4 +76,4 @@ resource "aws_lambda_function" "mi_lambda" {
   tags          = var.lambda_tags
 }
 
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "current" {} # obetener ID de cuenta actual dinámicamente
