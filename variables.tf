@@ -1,7 +1,7 @@
 variable "profile_name" {
   description = "Nombre del perfil de AWS a usar"
   type        = string
-  default     = "nombre_perfil" # nombre_perfil en .aws/config
+  #default     = "nombre_perfil" # No es necesario definirlo acá si se define en .tfvars (por seguridad, ya que .tfvars no se sube al repo)
 }
 
 variable "lambda_name" {
@@ -30,6 +30,6 @@ variable "lambda_tags" {
     Solucion     = "Lambda_con_Terraform"
     Creador     = "PavonIA"
     fecha_creacion  = "1/4/25"
-    
+
   }
 }
