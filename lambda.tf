@@ -16,7 +16,7 @@ provider "aws" {
   profile = var.profile_name
 }
 
-# Rol para el lambda
+# Rol para el lambda: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#example-usage 
 resource "aws_iam_role" "lambda_role" {
   name = "Rol_${var.lambda_name}"
 

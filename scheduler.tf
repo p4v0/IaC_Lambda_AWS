@@ -1,4 +1,4 @@
-# EventBridge scheduler
+# EventBridge scheduler: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/scheduler_schedule#argument-reference
 resource "aws_scheduler_schedule" "lambda_schedule" {
   name        = local.scheduler_name
   description = "Ejecuta la función Lambda según expresión cron"
